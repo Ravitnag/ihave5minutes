@@ -37,8 +37,6 @@ function App() {
       try {
         const res = await axios.get("/api/getGoals");
         setGoals(res.data);
-        console.log(res.data);
-        
       } catch (err) {
         console.log(err.message);
       }
@@ -48,29 +46,27 @@ function App() {
   }, []);
 
   return (
-    <div className="p-6 max-w-md mx-auto text-center">
-      <h1 className="text-2xl font-bold mb-4">מה בא לך לעשות היום?</h1>
+    <div className="text-slate-700 font-bold">
+      <div className="text-6xl ">
+        how much do you have ?
+      </div>
+      <div className="grid grid-cols-4 my-10 place-items-center">
+        {["5 min", "10 min", "15 min","custom"].map((x, i) => (
+          <div className="flex items-center justify-center w-20 h-10 rounded-3xl bg-gray-100 hover:bg-green-200  cursor-pointer" key={i}>
+          {x}
+          </div>
+        ))}
+      </div>
+      <h2 className="text-6xl font-bold my-10"> Which goal do you want to advance ?</h2>
 
-      <input
-        type="text"
-        value={goal}
-        onChange={(e) => setGoal(e.target.value)}
-        placeholder="למשל: לסדר את התמונות"
-        className="border rounded px-4 py-2 w-full mb-4"
-      />
+ <div className="grid grid-cols-6 my-10 place-items-center">
 
-      <input
-        type="number"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-        placeholder="כמה דקות יש לך עכשיו?"
-        className="border rounded px-4 py-2 w-full mb-4"
-      />
 
-      <button onClick={getSuggestion} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
-        תציעי לי משהו להתחיל
-      </button>
-
+      {["Health", "House", "Family", "Learning", "Work", "Other"].map((x,i)=>
+      <div onClick={getSuggestion} className="flex items-center justify-center w-20 h-10 rounded-3xl cursor-pointer hover:bg-green-200 bg-white transition">
+       {x}
+      </div>)}
+</div>
       {suggestion && (
         <div className="mt-6 bg-yellow-100 text-gray-800 p-4 rounded shadow">
           <p>
